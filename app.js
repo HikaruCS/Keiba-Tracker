@@ -1,3 +1,4 @@
+// 日付選択
 document.addEventListener("DOMContentLoaded", function() {
     flatpickr("#race-date", {
       locale: "ja",  // 日本語化
