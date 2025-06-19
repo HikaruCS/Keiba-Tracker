@@ -9,6 +9,59 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
+// 競馬場名をコードへ変換するマップ
+const race_cource_map = {
+  "札幌": "SAP",
+  "函館": "HAK",
+  "福島": "FUK",
+  "新潟": "NII",
+  "中山": "NAK",
+  "東京": "TOK",
+  "中京": "CKT",
+  "京都": "KYO",
+  "阪神": "HSN",
+  "小倉": "KOK"
+};
+
+// localStorageに保存する際のベーシックキーを作成する関数
+function createBaseKeyFromData(data) {
+  const date = data.date; // 例: 2025-6-15(宝塚記念の日)
+  const course_code = race_cource_map[data.course] || data.course;  // 競馬場をコード化
+  const race_number = data.race.replace("R", "");  // 例: 11R → 11
+  const race_code = `R${race_number}`  // 再整形
+
+  return `収支_${date}_${course_code}_${race_code}`
+}
+
+// 保存処理
+document.querySelector("#saveButton").addEventListener("click", function() {
+  const date = document.querySelector("#race-date").value;
+  const course = document.querySelector("#race-course").value;
+  const race = document.querySelector("#race").value;
+  const type = document.querySelector("#bet-type").value;
+  const bet = document.querySelector('input[name="bet"]').value;
+  const payoff = document.querySelector('input[name="payoff"]').value;
+
+  data = {
+    date: date,
+    course: course,
+    race: race,
+    type: type,
+    bet: bet,
+    payoff: payoff
+  };
+
+  const base_key = createBaseKeyFromData(data);
+  let count = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith(base_key)) count++;
+  };
+
+  const full_key = `${base_key}_${count + 1}`;
+  localStorage.setItem(full_key, JSON.stringify(data));
+});
+
 // 競馬場
 const tokyo = document.getElementById("tokyo");
 tokyo.addEventListener("click", function() {
