@@ -60,7 +60,24 @@ document.querySelector("#saveButton").addEventListener("click", function() {
 
   const full_key = `${base_key}_${count + 1}`;
   localStorage.setItem(full_key, JSON.stringify(data));
+
+  addRowToTable(data);
 });
+
+// テーブルに1行追加
+function addRowToTable(data) {
+  const tbody = document.getElementById("record-table");
+  const row = `<tr>
+    <td>${data.date}</td>
+    <td>${data.place}</td>
+    <td>${data.race}</td>
+    <td>${data.type}</td>
+    <td>${data.bet}</td>
+    <td>${data.payout}</td>
+  </tr>`;
+  tbody.insertAdjacentHTML("afterbegin", row);
+}
+
 
 // 競馬場
 const tokyo = document.getElementById("tokyo");
