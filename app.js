@@ -36,9 +36,9 @@ function createBaseKeyFromData(data) {
 // 保存処理
 document.querySelector("#saveButton").addEventListener("click", function() {
   const date = document.querySelector("#race-date").value;
-  const course = document.querySelector("#race-course").value;
-  const race = document.querySelector("#race").value;
-  const type = document.querySelector("#bet-type").value;
+  const course = document.querySelector("#race-course").textContent.trim();
+  const race = document.querySelector("#race").textContent.trim();
+  const type = document.querySelector("#bet-type").textContent.trim();
   const bet = document.querySelector('input[name="bet"]').value;
   const payoff = document.querySelector('input[name="payoff"]').value;
 
@@ -69,11 +69,11 @@ function addRowToTable(data) {
   const tbody = document.getElementById("record-table");
   const row = `<tr>
     <td>${data.date}</td>
-    <td>${data.place}</td>
+    <td>${data.course}</td>
     <td>${data.race}</td>
     <td>${data.type}</td>
     <td>${data.bet}</td>
-    <td>${data.payout}</td>
+    <td>${data.payoff}</td>
   </tr>`;
   tbody.insertAdjacentHTML("afterbegin", row);
 }
