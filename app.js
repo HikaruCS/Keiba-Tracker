@@ -39,8 +39,8 @@ document.querySelector("#saveButton").addEventListener("click", function() {
   const course = document.querySelector("#race-course").textContent.trim();
   const race = document.querySelector("#race").textContent.trim();
   const type = document.querySelector("#bet-type").textContent.trim();
-  const bet = document.querySelector('input[name="bet"]').value;
-  const payoff = document.querySelector('input[name="payoff"]').value;
+  const bet = Number(document.querySelector('input[name="bet"]').value);
+  const payoff = Number(document.querySelector('input[name="payoff"]').value);
 
   data = {
     date: date,
@@ -79,7 +79,7 @@ function addRowToTable(data) {
 }
 
 function loadTable() {
-  const tbody = document.getElementById("recordTable");
+  const tbody = document.getElementById("record-table");
   tbody.innerHTML = "";
   let records = [];
 
@@ -99,196 +99,40 @@ loadTable();
 
 
 // 競馬場
-const tokyo = document.getElementById("tokyo");
-tokyo.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = tokyo.innerHTML;
-})
-
-const nakayama = document.getElementById("nakayama");
-nakayama.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = nakayama.innerHTML;
-})
-
-const kyoto = document.getElementById("kyoto");
-kyoto.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = kyoto.innerHTML;
-})
-
-const hanshin = document.getElementById("hanshin");
-hanshin.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = hanshin.innerHTML;
-})
-
-const sapporo = document.getElementById("sapporo");
-sapporo.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = sapporo.innerHTML;
-})
-
-const hakodate = document.getElementById("hakodate");
-hakodate.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = hakodate.innerHTML;
-})
-
-const fukushima = document.getElementById("fukushima");
-fukushima.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = fukushima.innerHTML;
-})
-
-const niigata = document.getElementById("niigata");
-niigata.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = niigata.innerHTML;
-})
-
-const chukyo = document.getElementById("chukyo");
-chukyo.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = chukyo.innerHTML;
-})
-
-const kokura = document.getElementById("kokura");
-kokura.addEventListener("click", function() {
-  const race_course = document.getElementById("race-course");
-  race_course.innerHTML = kokura.innerHTML;
-})
+for (let course in race_cource_map) {
+  const race_course = document.getElementById(race_cource_map[course])
+  race_course.addEventListener("click", () => {
+    const drop_down = document.getElementById("race-course")
+    drop_down.innerHTML = race_course.innerHTML
+  })
+}
 
 // レース
-const first_race = document.getElementById("1");
-first_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = first_race.innerHTML;
-})
-
-const second_race = document.getElementById("2");
-second_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = second_race.innerHTML;
-})
-
-const third_race = document.getElementById("3");
-third_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = third_race.innerHTML;
-})
-
-const fourth_race = document.getElementById("4");
-fourth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = fourth_race.innerHTML;
-})
-
-const fifth_race = document.getElementById("5"); 
-fifth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = fifth_race.innerHTML;
-})
-
-const sixth_race = document.getElementById("6");
-sixth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = sixth_race.innerHTML;
-})
-
-const seventh_race = document.getElementById("7");
-seventh_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = seventh_race.innerHTML;
-})
-
-const eighth_race = document.getElementById("8");
-eighth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = eighth_race.innerHTML;
-})
-
-const ninth_race = document.getElementById("9");
-ninth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = ninth_race.innerHTML;
-})
-
-const tenth_race = document.getElementById("10");
-tenth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = tenth_race.innerHTML;
-})
-
-const eleventh_race = document.getElementById("11");
-eleventh_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = eleventh_race.innerHTML;
-})
-
-const twelfth_race = document.getElementById("12");
-twelfth_race.addEventListener("click", function() {
-  const race = document.getElementById("race");
-  race.innerHTML = twelfth_race.innerHTML;
-})
+for (let i = 1; i <= 12; i++) {
+  const nth_race = document.getElementById(String(i));
+  nth_race.addEventListener("click", function() {
+    document.getElementById("race").innerHTML = `${i}R`;
+  });
+}
 
 // 券種
-const tanshou = document.getElementById("tanshou");
-tanshou.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = tanshou.innerHTML;
-})
+betting_tickets = {
+  "単勝": "tanshou",
+  "複勝": "fukushou",
+  "応援馬券": "ouen",
+  "枠連": "wakuren",
+  "馬連": "umaren",
+  "馬単": "umatan",
+  "ワイド": "wide",
+  "3連複": "sanrenpuku",
+  "3連単": "sanrentan",
+  "WIN5": "win5"
+}
 
-const fukushou = document.getElementById("fukushou");
-fukushou.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = fukushou.innerHTML;
-})
-
-const ouen = document.getElementById("ouen");
-ouen.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = ouen.innerHTML;
-})
-
-const wakuren = document.getElementById("wakuren");
-wakuren.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = wakuren.innerHTML;
-})
-
-const umaren = document.getElementById("umaren");
-umaren.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = umaren.innerHTML;
-})
-
-const umatan = document.getElementById("umatan");
-umatan.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = umatan.innerHTML;
-})
-
-const wide = document.getElementById("wide");
-wide.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = wide.innerHTML;
-})
-
-const sanrenpuku = document.getElementById("sanrenpuku");
-sanrenpuku.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = sanrenpuku.innerHTML;
-})
-
-const sanrentan = document.getElementById("sanrentan");
-sanrentan.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = sanrentan.innerHTML;
-})
-
-const win5 = document.getElementById("win5");
-win5.addEventListener("click", () => {
-  const bet_type = document.getElementById("bet-type");
-  bet_type.innerHTML = win5.innerHTML;
-})
+for (type in betting_tickets) {
+  const betting_type = document.getElementById(betting_tickets[type])
+  betting_type.addEventListener("click", () => {
+    const drop_down = document.getElementById("bet-type");
+    drop_down.innerHTML = betting_type.innerHTML
+  })
+}
