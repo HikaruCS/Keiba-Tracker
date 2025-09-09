@@ -78,6 +78,25 @@ function addRowToTable(data) {
   tbody.insertAdjacentHTML("afterbegin", row);
 }
 
+function loadTable() {
+  const tbody = document.getElementById("recordTable");
+  tbody.innerHTML = "";
+  let records = [];
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith("収支_")) {
+      const data = JSON.parse(localStorage.getItem(key));
+      records.push(data);
+    }
+  }
+
+  records.reverse(); // 追加順で新しいものを上に
+  records.forEach(r => addRowToTable(r));
+}
+
+loadTable();
+
 
 // 競馬場
 const tokyo = document.getElementById("tokyo");
