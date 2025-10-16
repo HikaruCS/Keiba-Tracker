@@ -1,3 +1,5 @@
+// TODO: 記録の削除機能を作る 多分Event Delegationで行ける
+
 // 日付選択
 document.addEventListener("DOMContentLoaded", function() {
     flatpickr("#race-date", {
@@ -61,22 +63,43 @@ document.querySelector("#saveButton").addEventListener("click", function() {
   const full_key = `${base_key}_${count + 1}`;
   localStorage.setItem(full_key, JSON.stringify(data));
 
-  addRowToTable(data);
+  addRowToTable(data, full_key);
 });
 
 // テーブルに1行追加
-function addRowToTable(data) {
+function addRowToTable(data, key) {
   const tbody = document.getElementById("record-table");
-  const row = `<tr>
+  const row = `<tr id="${key}">
     <td>${data.date}</td>
     <td>${data.course}</td>
     <td>${data.race}</td>
     <td>${data.type}</td>
     <td>${data.bet}</td>
     <td>${data.payoff}</td>
+    <td><i class="fa-solid fa-trash"></i></td>
   </tr>`;
   tbody.insertAdjacentHTML("afterbegin", row);
 }
+
+function addGlobalEventListener(type, selector, callback) {
+            document.addEventListener(type, e => {
+                if (e.target.matches(selector)) {
+                    callback(e);
+                };
+            });
+        }
+
+// 記録の削除機能
+addGlobalEventListener("click", ".fa-trash", e => {
+  // tableの行を取得
+  const record_to_delete = e.target.parentElement.parentElement;
+  // Local Storageから削除
+  const key = String(record_to_delete.id);
+  localStorage.removeItem(key);
+  // キーが正しく取れてから、UI上から削除する
+  record_to_delete.remove();
+});
+
 
 function loadTable() {
   const tbody = document.getElementById("record-table");
@@ -87,12 +110,12 @@ function loadTable() {
     const key = localStorage.key(i);
     if (key.startsWith("収支_")) {
       const data = JSON.parse(localStorage.getItem(key));
-      records.push(data);
+      records.push({key: key, data: data});
     }
   }
 
   records.reverse(); // 追加順で新しいものを上に
-  records.forEach(r => addRowToTable(r));
+  records.forEach(r => addRowToTable(r.data, r.key));
 }
 
 loadTable();
