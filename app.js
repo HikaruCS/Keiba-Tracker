@@ -1,4 +1,4 @@
-// TODO: 記録の削除機能を作る 多分Event Delegationで行ける
+// TODO:
 
 // 日付選択
 document.addEventListener("DOMContentLoaded", function() {
@@ -64,6 +64,9 @@ document.querySelector("#saveButton").addEventListener("click", function() {
   localStorage.setItem(full_key, JSON.stringify(data));
 
   addRowToTable(data, full_key);
+
+  // フォームをリセット
+  resetForm()
 });
 
 // テーブルに1行追加
@@ -158,4 +161,17 @@ for (type in betting_tickets) {
     const drop_down = document.getElementById("bet-type");
     drop_down.innerHTML = betting_type.innerHTML
   })
+}
+
+// データを保存した後に、入力欄をリセットする関数
+function resetForm() {
+  // ドロップダウンのテキストを初期値に戻す
+  document.querySelector("#race-course").textContent = "競馬場";
+  document.querySelector("#race").textContent = "レース";
+  document.querySelector("#bet-type").textContent = "券種";
+
+  // 日付と金額の入力欄を空にする
+  document.querySelector("#race-date").value = "";
+  document.querySelector('input[name="bet"]').value = "";
+  document.querySelector('input[name="payoff"]').value = "";
 }
