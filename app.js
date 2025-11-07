@@ -1,5 +1,3 @@
-// TODO:
-
 // 日付選択
 document.addEventListener("DOMContentLoaded", function() {
     flatpickr("#race-date", {
@@ -98,6 +96,11 @@ document.querySelector("#keiba-form").addEventListener("submit", function(event)
 
   addRowToTable(data, full_key);
 
+  // 回収率を更新
+  const percentage = calculatePercentage();
+  const percentage_display = document.getElementById("percentage");
+  percentage_display.innerHTML = percentage + "%";
+
   // フォームをリセット
   resetForm()
 });
@@ -156,6 +159,14 @@ function loadTable() {
 
 loadTable();
 
+function initialLoadPercentage() {
+  const percentage = calculatePercentage();
+  const percentage_display = document.getElementById("percentage");
+  if (percentage_display) {
+    percentage_display.innerHTML = percentage + "%";
+  }
+}
+initialLoadPercentage()
 
 // 競馬場
 for (let course in race_cource_map) {
@@ -207,4 +218,29 @@ function resetForm() {
   document.querySelector("#race-date").value = "";
   document.querySelector('input[name="bet"]').value = "";
   document.querySelector('input[name="payoff"]').value = "";
+}
+
+// 回収率を計算する関数
+function calculatePercentage() {
+  let total_payoff = 0; // 買った金額
+  let total_bet = 0; // 購入 (賭けた) 金額
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+
+    if (key.startsWith("収支_")) {
+      const data = JSON.parse(localStorage.getItem(key));
+
+      total_payoff += Number(data.payoff);
+      total_bet += Number(data.bet);
+    }
+  }
+
+  if (total_bet === 0) {
+    return "0.00";
+  }
+
+  percentage = (total_payoff / total_bet) * 100;
+
+  return percentage.toFixed(2);
 }
