@@ -36,13 +36,46 @@ function createBaseKeyFromData(data) {
 }
 
 // 保存処理
-document.querySelector("#saveButton").addEventListener("click", function() {
+document.querySelector("#keiba-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+
   const date = document.querySelector("#race-date").value;
   const course = document.querySelector("#race-course").textContent.trim();
   const race = document.querySelector("#race").textContent.trim();
   const type = document.querySelector("#bet-type").textContent.trim();
+
+  // 日付が入力されているかのチェック
+  if (date === "") {
+    alert("日付を選択してください。");
+    return;
+  }
+
+  // ドロップダウンが選択されているかのチェック
+  if (course === "競馬場") {
+    alert("競馬場を選択してください。");
+    return;
+  }
+  if (race === "レース") {
+    alert("レースを選択してください。");
+    return;
+  }
+  if (type === "券種") {
+    alert("券種を選択してください。");
+    return;
+  }
+
   const bet = Number(document.querySelector('input[name="bet"]').value);
   const payoff = Number(document.querySelector('input[name="payoff"]').value);
+
+  // 購入金額、払戻金額が条件を満たしているかチェック
+  if (bet % 100 != 0) {
+    alert("購入金額は、100円単位で入力してください。")
+    return;
+  }
+  if (payoff % 10 != 0) {
+    alert("払戻金額は10円単位で入力してください。");
+    return;
+  }
 
   data = {
     date: date,
