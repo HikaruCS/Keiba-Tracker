@@ -97,10 +97,8 @@ document.querySelector("#keiba-form").addEventListener("submit", function(event)
   addRowToTable(data, full_key);
 
   // 回収率を更新
-  const percentage = calculatePercentage();
-  const percentage_display = document.getElementById("percentage");
-  percentage_display.innerHTML = percentage + "%";
-
+  renewPercentage();
+  
   // フォームをリセット
   resetForm()
 });
@@ -137,6 +135,9 @@ addGlobalEventListener("click", ".fa-trash", e => {
   localStorage.removeItem(key);
   // キーが正しく取れてから、UI上から削除する
   record_to_delete.remove();
+
+  // 回収率を更新
+  renewPercentage();
 });
 
 // 投票履歴の整理
@@ -246,4 +247,11 @@ function calculatePercentage() {
   percentage = (total_payoff / total_bet) * 100;
 
   return percentage.toFixed(2);
+}
+
+// 回収率を更新
+function renewPercentage() {
+  const percentage = calculatePercentage();
+  const percentage_display = document.getElementById("percentage");
+  percentage_display.innerHTML = percentage + "%";
 }

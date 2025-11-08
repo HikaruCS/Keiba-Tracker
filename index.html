@@ -15,10 +15,14 @@
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/d781539431.js" crossorigin="anonymous"></script>
+    <!-- Google Font -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="gradation">
     <header>
-        <h1 class="d-flex justify-content-center pt-3">Keiba Tracker</h1>
+        <h1 class="d-flex justify-content-center pt-3 zen-kurenaido-regular fs-1">Keiba Tracker</h1>
     </header>
     <main>
         <div class="container">
@@ -103,21 +107,22 @@
         <div id="table-container" class="mt-5">
             <table class="table">
                 <thead>
-                    <th scope="col">日付</th>
-                    <th scope="col">競馬場</th>
-                    <th scope="col">レース</th>
-                    <th scope="col">券種</th>
-                    <th scope="col">購入金額</th>
-                    <th scope="col">払戻金額</th>
+                    <th scope="col" class="gradation2">日付</th>
+                    <th scope="col" class="gradation2">競馬場</th>
+                    <th scope="col" class="gradation2">レース</th>
+                    <th scope="col" class="gradation2">券種</th>
+                    <th scope="col" class="gradation2">購入金額</th>
+                    <th scope="col" class="gradation2">払戻金額</th>
+                    <th scope="col" class="gradation2"></th>
                 </thead>
-                <tbody id="record-table">
+                <tbody id="record-table" class="">
 
                 </tbody>
             </table>
         </div>
     </main>
-    <footer>
-
+    <footer class="d-flex justify-content-center mt-3 gradation">
+        &copy; HikaruCS
     </footer>
     
     <script src="app.js"></script>
