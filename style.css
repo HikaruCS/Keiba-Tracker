@@ -1,3 +1,24 @@
 .fa-trash:hover {
     opacity: 70%;
 }
+
+/* Google Font  */
+.zen-kurenaido-regular {
+  font-family: "Zen Kurenaido", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.gradation {
+  background-image: linear-gradient(90deg, #92f223, #5df7b6);
+}
+
+.gradation2 {
+  background-image: linear-gradient(90deg, #d95104, #ecbaa3);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
