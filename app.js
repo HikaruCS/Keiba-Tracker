@@ -139,7 +139,7 @@ addGlobalEventListener("click", ".fa-trash", e => {
   record_to_delete.remove();
 });
 
-
+// 投票履歴の整理
 function loadTable() {
   const tbody = document.getElementById("record-table");
   tbody.innerHTML = "";
@@ -153,12 +153,15 @@ function loadTable() {
     }
   }
 
-  records.reverse(); // 追加順で新しいものを上に
+  records.sort((a, b) => {
+    return b.data.date.localeCompare(a.data.date);
+  }).reverse();
   records.forEach(r => addRowToTable(r.data, r.key));
 }
 
 loadTable();
 
+// ページがロードされたときに回収率を表示する関数
 function initialLoadPercentage() {
   const percentage = calculatePercentage();
   const percentage_display = document.getElementById("percentage");
